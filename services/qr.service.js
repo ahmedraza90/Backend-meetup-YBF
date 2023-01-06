@@ -2,6 +2,7 @@ const { BaseError } = require('../helpers/errorHandling')
 const { formatResponse, createResponse } = require('../helpers/formatter')
 var QRCode = require('qrcode')
 const { sendMessage, getTextMessageInput } = require("../helpers/watsapp.js");
+const {mixmax} = require('../helpers/mixmax')
 const User = require('../models/qr');
 
 async function send_watsApp(data) {
@@ -20,6 +21,7 @@ async function send_watsApp(data) {
         );
     }
     try {
+        await mixmax(email,"YBF Digital Collectibles | Phase 1")
         await User.create(data)
         return formatResponse(
             200,
@@ -29,19 +31,6 @@ async function send_watsApp(data) {
         console.log(e)
         process.exit()
     }
-    // var datas = getTextMessageInput(phoneNumber, 'Welcome to the OasisX Demo App');
-    // try {
-    //   await sendMessage(datas)
-    // await User.create(data)
-    // console.log('success')
-    // return formatResponse(
-    //   200,
-    // "Success",
-    //  );
-    //  } catch (e) {
-    //    console.log(e)
-    //  process.exit()
-    // }
 }
 async function generate_qr_code(link) {
     try {

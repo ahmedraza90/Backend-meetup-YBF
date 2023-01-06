@@ -1,6 +1,6 @@
 const axios = require('axios')
 
-async function mixmax(email){
+async function mixmax(email,template){
   try{
     var sendConfig = {
       headers: {
@@ -16,8 +16,7 @@ async function mixmax(email){
         'X-API-Token': "671d004a-2e6d-49cf-8b17-90e19df24535"
       },
     };
-    
-    await axios(`https://api.mixmax.com/v1/snippets?search=Non Fungible Meetups Vol1`,getTemplateConfig)
+    await axios(`https://api.mixmax.com/v1/snippets?search=${template}`,getTemplateConfig)
     .then((res)=>{
       axios.post(`https://api.mixmax.com/v1/snippets/${res.data.results[0]._id}/send`,{ to: [{email}], variables: {}},sendConfig)
       .then((res)=>{console.log()})

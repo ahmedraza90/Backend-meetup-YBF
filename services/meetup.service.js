@@ -5,13 +5,13 @@ const User = require('../models/meetup')
 
 async function send_email(data) {
     const lengths =await User.count()
-    if(lengths >100){
-        return formatResponse(
-            200,
-            "sold out",
-            "sold out"
-        )
-    }
+    // if(lengths >100){
+    //     return formatResponse(
+    //         200,
+    //         "sold out",
+    //         "sold out"
+    //     )
+    // }
     const { email } = data;
     const oldUser = await User.findOne({ email });
     if (oldUser) {
@@ -21,8 +21,7 @@ async function send_email(data) {
             "Email already registered"
         );
     }
-    console.log("sub set he")
-    await mixmax(email)
+    await mixmax(email,"Non Fungible Meetups Vol1")
     await User.create(data)
     return formatResponse(
         200,

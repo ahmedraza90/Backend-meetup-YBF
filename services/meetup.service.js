@@ -4,6 +4,14 @@ const { mixmax } = require('../helpers/mixmax')
 const User = require('../models/meetup')
 
 async function send_email(data) {
+    const lengths =await User.count()
+    if(lengths >100){
+        return formatResponse(
+            200,
+            "sold out",
+            "sold out"
+        )
+    }
     const { email } = data;
     const oldUser = await User.findOne({ email });
     if (oldUser) {

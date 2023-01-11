@@ -1,17 +1,17 @@
 const { BaseError } = require('../helpers/errorHandling')
 const { formatResponse, createResponse } = require('../helpers/formatter')
 const { mixmax } = require('../helpers/mixmax')
-const User = require('../models/meetup')
+const User = require('../models/women')
 
-async function send_email(data) {
-    const lengths =await User.count()
-    if(lengths >100){
-        return formatResponse(
-            200,
-            "sold out",
-            "sold out"
-        )
-    }
+async function save_women(data) {
+    // const lengths =await User.count()
+    // if(lengths >100){
+    //     return formatResponse(
+    //         200,
+    //         "sold out",
+    //         "sold out"
+    //     )
+    // }
     const { email } = data;
     const oldUser = await User.findOne({ email });
     if (oldUser) {
@@ -21,7 +21,6 @@ async function send_email(data) {
             "Email already registered"
         );
     }
-    await mixmax(email,"Non Fungible Meetups Vol1")
     await User.create(data)
     return formatResponse(
         200,
@@ -29,7 +28,7 @@ async function send_email(data) {
     );
 }
 
-async function meetup_get_all_users() {
+async function women_get_all_users() {
     const data = await User.find({}).exec();
     if (data.length == 0) {
         throw new BaseError("there is no user yet", 401)
@@ -42,7 +41,7 @@ async function meetup_get_all_users() {
     );
 }
 
-async function meetup_get_user_by(query) {
+async function women_get_user_by(query) {
     
     const par = Object.keys(query)[0]
     if (["name", "country", "phoneNumber", "email"].includes(par) == false) {
@@ -64,7 +63,7 @@ async function meetup_get_user_by(query) {
 }
 
 module.exports = {
-    send_email,
-    meetup_get_all_users,
-    meetup_get_user_by
+    save_women,
+    women_get_all_users,
+    women_get_user_by
 }

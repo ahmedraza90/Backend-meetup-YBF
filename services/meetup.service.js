@@ -43,6 +43,7 @@ async function meetup_get_all_users() {
 }
 
 async function meetup_get_user_by(query) {
+    console.log(query)
     const par = Object.keys(query)[0]
     if (["name", "country", "phoneNumber", "email"].includes(par) == false) {
         return formatResponse(
@@ -50,7 +51,7 @@ async function meetup_get_user_by(query) {
             "Wrong query parameters"
         );
     }
-    const data = await User.find({ par }).exec();
+    const data = await User.find(query).exec();
     if (data.length == 0) {
         throw new BaseError("there is no users yet", 401)
     }

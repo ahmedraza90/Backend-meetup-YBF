@@ -16,7 +16,6 @@ async function send_email(req, res) {
     }
 }
 async function get_all_users(req, res) {
-    console.log(req.query)
     try {
         const response = await meetupService.meetup_get_all_users()
         if (response) {
@@ -32,7 +31,7 @@ async function get_all_users(req, res) {
 }
 async function get_user_by(req, res) {
     try {
-
+        // console.log(req)
         const response = await meetupService.meetup_get_user_by(req.query)
         if (response) {
             return res

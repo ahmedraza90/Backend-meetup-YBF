@@ -11,7 +11,7 @@ async function meetup2_send_email(data) {
     //         "sold out",
     //         "sold out"
     //     )
-    // }
+    // }    
     const { email } = data;
     const oldUser = await User.findOne({ email });
     if (oldUser) {
@@ -21,7 +21,8 @@ async function meetup2_send_email(data) {
             "Email already registered"
         );
     }
-    await mixmax(email,"Non Fungible Meetups Vol1")
+    console.log(data)
+    await mixmax(email,"Non Fungible Meetups Vol2")
     await User.create(data)
     return formatResponse(
         200,

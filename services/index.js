@@ -4,6 +4,7 @@ const { save_women, women_get_all_users, women_get_user_by } = require('./women.
 const { meetup2_send_email, meetup2_get_all_users, meetup2_get_user_by } = require('./meetup2.service')
 const { add_POAP, POAP_get_all_users,POAP_get_user_by } = require('./POAP.service')
 const { add_KarakNightsxSwey,KarakNightsxSwey_get_all_users,KarakNightsxSwey_get_user_by} = require('./KarakNightsxSwey.service')
+const { save_twinCyclops, twinCyclops_get_all_users,twinCyclops_get_user_by} = require("./TwinCyclops.service")
 
 const qrService = {
     send_watsApp,
@@ -36,11 +37,17 @@ const KarakNightsxSweyService = {
     KarakNightsxSwey_get_all_users,
     KarakNightsxSwey_get_user_by
 }
+const twinCyclopsService = {
+    save_twinCyclops,
+    twinCyclops_get_all_users,
+    twinCyclops_get_user_by
+}
 module.exports = {
     qrService,
     meetupService,
     womenService,
     meetup2Service,
     POAPService,
-    KarakNightsxSweyService
+    KarakNightsxSweyService,
+    twinCyclopsService
 }

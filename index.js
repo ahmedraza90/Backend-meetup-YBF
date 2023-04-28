@@ -7,6 +7,7 @@ const meetup2Routes = require('./routes/meetup2.route')
 const KarakNightsxSweyRoutes = require('./routes/KarakNightsxSwey.route')
 const POAPRoutes = require('./routes/POAP.routes')
 const TwinCyclopsRoutes = require('./routes/TwinCyclops.route') 
+const ogNFTRoutes = require('./routes/ogNFT.route') 
 
 app.use(qrRoutes)
 app.use(meetupRoutes)
@@ -15,6 +16,7 @@ app.use(womenNFT)
 app.use(KarakNightsxSweyRoutes)
 app.use(POAPRoutes)
 app.use(TwinCyclopsRoutes)
+app.use(ogNFTRoutes)
 
 app.get('/test',async(req,res)=>{
    res.status(200).json("App is running")

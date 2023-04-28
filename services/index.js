@@ -5,6 +5,8 @@ const { meetup2_send_email, meetup2_get_all_users, meetup2_get_user_by } = requi
 const { add_POAP, POAP_get_all_users,POAP_get_user_by } = require('./POAP.service')
 const { add_KarakNightsxSwey,KarakNightsxSwey_get_all_users,KarakNightsxSwey_get_user_by} = require('./KarakNightsxSwey.service')
 const { save_twinCyclops, twinCyclops_get_all_users,twinCyclops_get_user_by} = require("./TwinCyclops.service")
+const { save_ogNFT, ogNFT_get_all_users,ogNFT_get_user_by} = require("./ogNFT.service")
+
 
 const qrService = {
     send_watsApp,
@@ -42,6 +44,11 @@ const twinCyclopsService = {
     twinCyclops_get_all_users,
     twinCyclops_get_user_by
 }
+const ogNFTService = {
+    save_ogNFT,
+    ogNFT_get_all_users,
+    ogNFT_get_user_by
+}
 module.exports = {
     qrService,
     meetupService,
@@ -49,5 +56,6 @@ module.exports = {
     meetup2Service,
     POAPService,
     KarakNightsxSweyService,
-    twinCyclopsService
+    twinCyclopsService,
+    ogNFTService
 }

@@ -6,6 +6,7 @@ const { add_POAP, POAP_get_all_users,POAP_get_user_by } = require('./POAP.servic
 const { add_KarakNightsxSwey,KarakNightsxSwey_get_all_users,KarakNightsxSwey_get_user_by} = require('./KarakNightsxSwey.service')
 const { save_twinCyclops, twinCyclops_get_all_users,twinCyclops_get_user_by} = require("./TwinCyclops.service")
 const { save_ogNFT, ogNFT_get_all_users,ogNFT_get_user_by} = require("./ogNFT.service")
+const { save_Samra, Samra_get_all_users,Samra_get_user_by} = require("./samra.service")
 
 
 const qrService = {
@@ -49,6 +50,11 @@ const ogNFTService = {
     ogNFT_get_all_users,
     ogNFT_get_user_by
 }
+const SamraService = {
+    save_Samra,
+    Samra_get_all_users,
+    Samra_get_user_by
+}
 module.exports = {
     qrService,
     meetupService,
@@ -57,5 +63,6 @@ module.exports = {
     POAPService,
     KarakNightsxSweyService,
     twinCyclopsService,
-    ogNFTService
+    ogNFTService,
+    SamraService
 }

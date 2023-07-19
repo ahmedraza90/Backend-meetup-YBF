@@ -9,6 +9,7 @@ const POAPRoutes = require('./routes/POAP.routes')
 const TwinCyclopsRoutes = require('./routes/TwinCyclops.route') 
 const ogNFTRoutes = require('./routes/ogNFT.route')
 const Samra = require('./routes/Samra.route') 
+const Flappy = require('./routes/flappy.route')
 
 app.use(qrRoutes)
 app.use(meetupRoutes)
@@ -19,6 +20,8 @@ app.use(POAPRoutes)
 app.use(TwinCyclopsRoutes)
 app.use(ogNFTRoutes)
 app.use(Samra)
+app.use(Flappy)
+
 app.get('/test',async(req,res)=>{
    res.status(200).json("App is running")
 })

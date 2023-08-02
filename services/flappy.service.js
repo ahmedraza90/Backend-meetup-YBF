@@ -9,10 +9,10 @@ async function flappy_save_user(data) {
         return formatResponse(
             200,
             "Fail",
-            "Email already registered"
+            "User already registered"
         );
     }
-    await User.create({ walletAddress })
+    await User.create(data)
     return formatResponse(
         200,
         "Success",

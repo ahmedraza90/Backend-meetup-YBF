@@ -8,7 +8,7 @@ const { save_twinCyclops, twinCyclops_get_all_users, twinCyclops_get_user_by } =
 const { save_ogNFT, ogNFT_get_all_users, ogNFT_get_user_by } = require("./ogNFT.service")
 const { save_Samra, Samra_get_all_users, Samra_get_user_by } = require("./samra.service")
 const { flappy_save_user,flappy_update_user,flappy_get_all_users } = require('./flappy.service')
-
+const { save_africa, africa_get_all_users, africa_get_user_by} = require('./africa.service')
 
 const qrService = {
     send_watsApp,
@@ -62,6 +62,12 @@ const FlappyService = {
     flappy_update_user,
     flappy_get_all_users
 }
+
+const africaService = {
+    save_africa,
+    africa_get_user_by,
+    africa_get_all_users
+}
 module.exports = {
     qrService,
     meetupService,
@@ -72,5 +78,6 @@ module.exports = {
     twinCyclopsService,
     ogNFTService,
     SamraService,
-    FlappyService
+    FlappyService,
+    africaService
 }

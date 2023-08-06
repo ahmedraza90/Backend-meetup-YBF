@@ -7,7 +7,7 @@ const { add_KarakNightsxSwey, KarakNightsxSwey_get_all_users, KarakNightsxSwey_g
 const { save_twinCyclops, twinCyclops_get_all_users, twinCyclops_get_user_by } = require("./TwinCyclops.service")
 const { save_ogNFT, ogNFT_get_all_users, ogNFT_get_user_by } = require("./ogNFT.service")
 const { save_Samra, Samra_get_all_users, Samra_get_user_by } = require("./samra.service")
-const { flappy_save_user,flappy_update_user,flappy_get_all_users } = require('./flappy.service')
+const { flappy_save_user,flappy_update_user,flappy_get_all_users,flappy_get_users } = require('./flappy.service')
 const { save_africa, africa_get_all_users, africa_get_user_by} = require('./africa.service')
 
 const qrService = {
@@ -60,7 +60,8 @@ const SamraService = {
 const FlappyService = {
     flappy_save_user,
     flappy_update_user,
-    flappy_get_all_users
+    flappy_get_all_users,
+    flappy_get_users
 }
 
 const africaService = {
@@ -79,5 +80,6 @@ module.exports = {
     ogNFTService,
     SamraService,
     FlappyService,
-    africaService
+    africaService,
+    flappy_get_users
 }

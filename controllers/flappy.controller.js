@@ -15,6 +15,7 @@ async function save(req, res) {
         res.status(statusCode || 400).json(formatResponse(statusCode || 400, "error", message));
     }
 }
+
 async function update(req, res) {
     try {
         const response = await FlappyService.flappy_update_user(req.body)
@@ -30,6 +31,7 @@ async function update(req, res) {
         res.status(statusCode || 400).json(formatResponse(statusCode || 400, "error", message));
     }
 }
+
 async function get_all_users(req, res) {
     try {
         const response = await FlappyService.flappy_get_all_users()
@@ -44,8 +46,25 @@ async function get_all_users(req, res) {
         res.status(statusCode || 400).json(formatResponse(statusCode || 400, "error", message));
     }
 }
+
+async function get_users(req, res) {
+    try {
+        const response = await FlappyService.flappy_get_users(req.body)
+        if (response) {
+            return res
+                .status(response.statusCode)
+                .json(response);
+        }
+
+    } catch (error) {
+        const { message, statusCode } = error;
+        res.status(statusCode || 400).json(formatResponse(statusCode || 400, "error", message));
+    }
+}
+
 module.exports = {
     save,
     update,
-    get_all_users,   
+    get_all_users,
+    get_users   
 }

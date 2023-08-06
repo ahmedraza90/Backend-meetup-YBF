@@ -49,9 +49,8 @@ async function flappy_get_all_users() {
 
 }
 
-async function flappy_get_users(data) {
-
-    const { walletAddress } = data;
+async function flappy_get_users(walletAddress) {
+ 
     try {
         const excludedFields = ['_id','createdAt','updatedAt','__v']; 
         const scores = await User.findOne({ walletAddress }).select(excludedFields.map(field => `-${field}`));

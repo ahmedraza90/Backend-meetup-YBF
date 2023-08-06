@@ -49,7 +49,7 @@ async function get_all_users(req, res) {
 
 async function get_users(req, res) {
     try {
-        const response = await FlappyService.flappy_get_users(req.body)
+        const response = await FlappyService.flappy_get_users(req.params.id)
         if (response) {
             return res
                 .status(response.statusCode)

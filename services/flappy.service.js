@@ -53,8 +53,9 @@ async function flappy_get_users(data) {
 
     const { walletAddress } = data;
     try {
-        const scores = await User.findOne({ walletAddress });
-        return formatResponse(200,"Success","",scores)
+        const excludedFields = ['_id','createdAt','updatedAt','__v']; 
+        const scores = await User.findOne({ walletAddress }).select(excludedFields.map(field => `-${field}`));
+        return formatResponse(200,"Success","",scores._doc)
     } catch (error) {
         console.error("Error while updating user:", error);
     }

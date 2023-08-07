@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-// const uri = "mongodb+srv://najib:J$f3C_68N*!nRbR@cluster0.3u6nqfa.mongodb.net/?retryWrites=true&w=majority"
-const uri = "mongodb+srv://admin:admin@cluster0.xrazhc1.mongodb.net/?retryWrites=true&w=majority"
+const uri = "mongodb+srv://najib:J$f3C_68N*!nRbR@cluster0.3u6nqfa.mongodb.net/?retryWrites=true&w=majority"
+// const uri = "mongodb+srv://admin:admin@cluster0.xrazhc1.mongodb.net/?retryWrites=true&w=majority"
 
 exports.connect = () => {
     mongoose.connect(uri, {

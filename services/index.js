@@ -9,6 +9,7 @@ const { save_ogNFT, ogNFT_get_all_users, ogNFT_get_user_by } = require("./ogNFT.
 const { save_Samra, Samra_get_all_users, Samra_get_user_by } = require("./samra.service")
 const { flappy_save_user,flappy_update_user,flappy_get_all_users,flappy_get_users } = require('./flappy.service')
 const { save_africa, africa_get_all_users, africa_get_user_by} = require('./africa.service')
+const { save_she,she_get_all_users,she_get_user_by} = require('./she.service')
 
 const qrService = {
     send_watsApp,
@@ -69,6 +70,11 @@ const africaService = {
     africa_get_user_by,
     africa_get_all_users
 }
+const sheService = {
+    save_she,
+    she_get_user_by,
+    she_get_all_users
+}
 module.exports = {
     qrService,
     meetupService,
@@ -81,5 +87,5 @@ module.exports = {
     SamraService,
     FlappyService,
     africaService,
-    flappy_get_users
+    sheService
 }

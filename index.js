@@ -12,6 +12,7 @@ const Samra = require('./routes/Samra.route')
 const Flappy = require('./routes/flappy.route')
 const Africa = require('./routes/africa.route')
 const She = require('./routes/she.route')
+const Form = require("./routes/form.route")
 
 app.use(qrRoutes)
 app.use(meetupRoutes)
@@ -25,6 +26,7 @@ app.use(Samra)
 app.use(Flappy)
 app.use(Africa)
 app.use(She)
+app.use(Form)
 
 app.get('/test',async(req,res)=>{
    res.status(200).json("App is running")

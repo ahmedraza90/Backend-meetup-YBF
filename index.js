@@ -1,5 +1,6 @@
 const { app } = require("./app");
 const { API_PORT } = process.env;
+const axios = require('axios');
 const qrRoutes = require("./routes/qr.route")
 const meetupRoutes = require('./routes/meetup.route')
 const womenNFT = require('./routes/women.route')
@@ -40,21 +41,19 @@ app.post('/brandingForm', async (req, res) => {
         data
     }));
     try {
-        const response = await fetch(url, {
-            method: 'POST',
+        const response = await axios.post(url, {
+            formType,
+            data
+        }, {
             headers: {
-                "Content-Type": "text/plain",
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                formType,
-                data
-            }),
         });
-
-        if (response.ok) {
+        if (response.status >= 200 && response.status < 300) {
             res.status(200).json("Form data submitted successfully");
         } else {
-            res.status(400).json("Error submitting form data",response.statusText);
+            console.log(response)
+            res.status(400).json("Error submitting form data");
         }
     } catch (error) {
         res.status(400).json("Error fetching form data");

@@ -1,6 +1,5 @@
 const { app } = require("./app");
 const { API_PORT } = process.env;
-const axios = require('axios');
 const qrRoutes = require("./routes/qr.route")
 const meetupRoutes = require('./routes/meetup.route')
 const womenNFT = require('./routes/women.route')
@@ -14,6 +13,7 @@ const Flappy = require('./routes/flappy.route')
 const Africa = require('./routes/africa.route')
 const She = require('./routes/she.route')
 const Form = require("./routes/form.route")
+const brandingForm = require('./routes/brandingForm.route')
 
 app.use(qrRoutes)
 app.use(meetupRoutes)
@@ -28,38 +28,11 @@ app.use(Flappy)
 app.use(Africa)
 app.use(She)
 app.use(Form)
+app.use(brandingForm)
 
 app.get('/test', async (req, res) => {
     res.status(200).json("App is running")
 })
-
-app.post('/brandingForm', async (req, res) => {
-    const url = 'https://script.google.com/macros/s/AKfycbz39VUavoiBFzfvogiPDwTXfS4KJr_a14v6Cagel8VjjM_4Z6xQz6Nr5kVnn1g97zG8/exec';
-    const { formType, data} = req.body
-    console.log(JSON.stringify({
-        formType,
-        data
-    }));
-    try {
-        const response = await axios.post(url, {
-            formType,
-            data
-        }, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        if (response.status >= 200 && response.status < 300) {
-            res.status(200).json("Form data submitted successfully");
-        } else {
-            console.log(response)
-            res.status(400).json("Error submitting form data");
-        }
-    } catch (error) {
-        res.status(400).json("Error fetching form data");
-    }
-});
-
 app.listen(process.env.PORT || 3000, () => {
     console.log(`Server running on port ${API_PORT}`);
 });

@@ -9,8 +9,11 @@ router.get('/NFTgated', async (req, res) => {
     try {
         const response = await axios.get(url);
         if (response.status >= 200 && response.status < 300) {
-            console.log("ppppppppppppppppppp",response.data) 
-            res.status(200).json(response.data);
+            if((response.data).length > 0 ){
+                res.status(200).json({"verify" : true});
+            } else {
+                res.status(200).json({"verify" : false});
+            }
         } else {
             console.log(response)
             res.status(400).json("Error submitting form data");

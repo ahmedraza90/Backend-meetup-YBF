@@ -14,6 +14,8 @@ const Africa = require('./routes/africa.route')
 const She = require('./routes/she.route')
 const Form = require("./routes/form.route")
 const brandingForm = require('./routes/brandingForm.route')
+const nftGated = require('./routes/NFTGated.route')
+
 
 app.use(qrRoutes)
 app.use(meetupRoutes)
@@ -29,6 +31,10 @@ app.use(Africa)
 app.use(She)
 app.use(Form)
 app.use(brandingForm)
+app.use(nftGated)
+
+
+
 
 app.get('/test', async (req, res) => {
     res.status(200).json("App is running")

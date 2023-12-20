@@ -3,7 +3,7 @@ const axios = require('axios');
 
 
 router.get('/NFTgated', async (req, res) => {
-    const {walletAddress,contractAddress} = req.body
+    const {walletAddress,contractAddress} = req.query
     try {
         const response = await axios.get(`https://api-new.oasisx.world/users?filter={"where":[{"walletAddress": "${walletAddress}"}]}`);
         if (response.status >= 200 && response.status < 300) {

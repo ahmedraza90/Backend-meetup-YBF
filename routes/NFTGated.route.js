@@ -1,6 +1,7 @@
 const { router } = require("../app")
 const axios = require('axios');
-
+const fs = require('fs');
+const path = require('path');
 
 router.get('/NFTgated', async (req, res) => {
     const {walletAddress,contractAddress} = req.query
@@ -8,12 +9,12 @@ router.get('/NFTgated', async (req, res) => {
         const response = await axios.get(`https://api-new.oasisx.world/users?filter={"where":[{"walletAddress": "${walletAddress}"}]}`);
         if (response.status >= 200 && response.status < 300) {
             if((response.data).length == 0 ){
-                return res.status(200).json({"status" : "User does not exist in OasisX"});
+                return res.status(200).json({"verify" : false});
             } 
             const verify = await axios.get(`https://api-new.oasisx.world/items?filter={"where":[{"contractAddress": "${contractAddress}", "ownerId":"${response.data[0]["Id"]}"}]}`);
             if (verify.status >= 200 && response.status < 300) {
                 if((verify.data).length == 0 ){
-                    return res.status(200).json({"status" : "User do not have NFT"});
+                    return res.status(200).json({"verify" : false});
                 }
                 return res.status(200).json({"verify" : true});
             }
@@ -26,6 +27,14 @@ router.get('/NFTgated', async (req, res) => {
     }
 })
 
+router.get('/africaReport', async (req, res) => {
+    try {
+        const pdf = path.join(__dirname, '..', 'extra', 'PDF.pdf');
+        res.download(pdf); // Set disposition and send it.
+    } catch (error) {
+        res.status(400).json("Error fetching form data");
+    }
+})
 
 module.exports = router
 

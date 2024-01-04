@@ -11,6 +11,7 @@ const { flappy_save_user,flappy_update_user,flappy_get_all_users,flappy_get_user
 const { save_africa, africa_get_all_users, africa_get_user_by} = require('./africa.service')
 const { save_she,she_get_all_users,she_get_user_by} = require('./she.service')
 const { save_form, form_get_all_users, form_get_user_by} = require("./form.service")
+const { baller_save_user, baller_get_all_users, baller_get_users, baller_update_user} = require("./baller.service")
 
 const qrService = {
     send_watsApp,
@@ -82,6 +83,12 @@ const formService = {
     form_get_all_users,
     form_get_user_by
 }
+const ballerService = {
+    baller_save_user,
+    baller_update_user,
+    baller_get_users,
+    baller_get_all_users
+}
 module.exports = {
     qrService,
     meetupService,
@@ -95,5 +102,6 @@ module.exports = {
     FlappyService,
     africaService,
     sheService,
-    formService
+    formService,
+    ballerService
 }

@@ -15,6 +15,7 @@ const She = require('./routes/she.route')
 const Form = require("./routes/form.route")
 const brandingForm = require('./routes/brandingForm.route')
 const nftGated = require('./routes/NFTGated.route')
+const baller = require("./routes/baller.route")
 
 
 app.use(qrRoutes)
@@ -32,6 +33,7 @@ app.use(She)
 app.use(Form)
 app.use(brandingForm)
 app.use(nftGated)
+app.use(baller)
 
 
 

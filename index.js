@@ -16,7 +16,7 @@ const Form = require("./routes/form.route")
 const brandingForm = require('./routes/brandingForm.route')
 const nftGated = require('./routes/NFTGated.route')
 const baller = require("./routes/baller.route")
-
+const fido = require('./routes/fido.route') 
 
 app.use(qrRoutes)
 app.use(meetupRoutes)
@@ -34,13 +34,8 @@ app.use(Form)
 app.use(brandingForm)
 app.use(nftGated)
 app.use(baller)
+app.use(fido)
 
-
-
-
-app.get('/test', async (req, res) => {
-    res.status(200).json("App is running")
-})
 app.listen(process.env.PORT || 3000, () => {
     console.log(`Server running on port ${API_PORT}`);
 });

@@ -37,9 +37,8 @@ async function merkleRoot() {
 }
 
 async function wallet_checker(query) {
-    console.log("[[[[[[[[[[",query)
-    const walletAddress = query
-    const data = await User.findOne(walletAddress).select('-_id -__v -createdAt -updatedAt').exec();
+    const {walletAddress} = query
+    const data = await User.findOne({walletAddress}).select('-_id -__v -createdAt -updatedAt').exec();
     if (!data) {
         return formatResponse(
             200,

@@ -5,6 +5,7 @@ const { MerkleTree } = require('merkletreejs')
 const addressess = require("./white.json")
 const whiteList = require("./output.json")
 const contract = require("./contract.json")
+const path = require('path');
 const fs = require('fs');
 
 
@@ -60,14 +61,38 @@ async function wallet_checker(query) {
 }
 async function contract_deploy(query) {
 
-    const {  walletAddress } = query
-    console.log( walletAddress)
-    const newJsonData = JSON.stringify(walletAddress, null, 2);
-    try {
-        fs.writeFileSync('contract.json', newJsonData);
-    } catch (error) {
-        console.error('Failed to write file:', error);
-    }
+    const { walletAddress } = query
+    const jsonFilePath = path.join(__dirname, 'contract.json');
+
+    // Read the JSON file
+    fs.readFile(jsonFilePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error(`Error reading file from disk: ${err}`);
+        } else {
+            // Parse the JSON string to a JavaScript object
+            const jsonObject = JSON.parse(data);
+
+            // Modify the data
+            jsonObject[0] = `${walletAddress}`;
+
+            // Convert the modified object back to a JSON string
+            const jsonString = JSON.stringify(jsonObject, null, 2);
+
+            // Write the new JSON string back to the file
+            fs.writeFile(jsonFilePath, jsonString, 'utf8', err => {
+                if (err) {
+                    console.error(`Error writing file to disk: ${err}`);
+                } else {
+                    console.error(`Success`);
+                 
+                }
+            });
+        }
+    });
+    return formatResponse(
+        200,
+        "Success"
+    );
 }
 async function contract_read() {
     const data = contract

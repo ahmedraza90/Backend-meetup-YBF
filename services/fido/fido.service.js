@@ -4,6 +4,7 @@ const keccak256 = require("keccak256");
 const { MerkleTree } = require('merkletreejs')
 const addressess = require("./white.json")
 const whiteList = require("./output.json")
+const contract = require("./contract.json")
 const fs = require('fs');
 
 
@@ -27,7 +28,7 @@ async function merkleRoot() {
         final.push(obj)
 
     }
-    
+
     const newJsonData = JSON.stringify(final, null, 2);
     fs.writeFileSync('output.json', newJsonData);
     return formatResponse(
@@ -39,17 +40,17 @@ async function merkleRoot() {
 
 async function wallet_checker(query) {
     const address = whiteList;
-    
+
     const { walletAddress } = query
     let data = address.find(item => item.walletAddress === walletAddress);
     console.log(data)
-    if(data){
+    if (data) {
         return formatResponse(
-                200,
-                "Success",
-                "",
-                {data}
-            );
+            200,
+            "Success",
+            "",
+            { data }
+        );
     } else {
         return formatResponse(
             200,
@@ -57,9 +58,37 @@ async function wallet_checker(query) {
         );
     }
 }
+async function contract_deploy(query) {
 
+    const {  walletAddress } = query
+    console.log( walletAddress)
+    const newJsonData = JSON.stringify(walletAddress, null, 2);
+    try {
+        fs.writeFileSync('contract.json', newJsonData);
+    } catch (error) {
+        console.error('Failed to write file:', error);
+    }
+}
+async function contract_read() {
+    const data = contract
+    if (data.length == 0) {
+        return formatResponse(
+            200,
+            "Fail",
+            "No contract yet"
+        );
+    }
+    return formatResponse(
+        200,
+        "Success",
+        "",
+        { data }
+    );
+}
 
 module.exports = {
     merkleRoot,
-    wallet_checker
+    wallet_checker,
+    contract_deploy,
+    contract_read
 }

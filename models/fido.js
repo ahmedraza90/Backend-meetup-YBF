@@ -2,15 +2,10 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
     {
-        walletAddress: {
+        contractAddress: {
             type: String,
             required: true,
-        },
-        proof : {
-            type: Array,
-            required: true
-        }
-        
+        }   
     },
     {
         timestamps: true,

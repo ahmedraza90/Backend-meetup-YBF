@@ -61,55 +61,75 @@ async function wallet_checker(query) {
 }
 async function contract_deploy(query) {
 
+
     const { walletAddress } = query
-    const jsonFilePath = path.join(__dirname, 'contract.json');
-
-    // Read the JSON file
-    fs.readFile('contract.json', 'utf8', (err, data) => {
-        if (err) {
-            console.error(`Error reading file from disk: ${err}`);
-        } else {
-            // Parse the JSON string to a JavaScript object
-            const jsonObject = JSON.parse(data);
-
-            // Modify the data
-            jsonObject[0] = `${walletAddress}`;
-
-            // Convert the modified object back to a JSON string
-            const jsonString = JSON.stringify(jsonObject, null, 2);
-            console.log("saving: ",jsonString)
-            // Write the new JSON string back to the file
-            fs.writeFile('contract.json', jsonString, 'utf8', err => {
-                if (err) {
-                    console.error(`Error writing file to disk: ${err}`);
-                } else {
-                    console.error(`Success`);
-                 
-                }
-            });
-        }
-    });
-    return formatResponse(
-        200,
-        "Success"
-    );
-}
-async function contract_read() {
-    const data = contract
-    console.log("reading:",data)
-    if (data.length == 0) {
+    try {
+        await User.findByIdAndUpdate('65bf8b52ebbbf70b463266ee', { contractAddress: walletAddress })
         return formatResponse(
             200,
-            "Fail",
-            "No contract yet"
+            "Success"
+        );
+    } catch (error) {
+        console.log("error in saving address: ", error)
+        return formatResponse(
+            200,
+            "Fail"
         );
     }
+
+    // // Read the JSON file
+    // fs.readFile('contract.json', 'utf8', (err, data) => {
+    //     if (err) {
+    //         console.error(`Error reading file from disk: ${err}`);
+    //     } else {
+    //         // Parse the JSON string to a JavaScript object
+    //         const jsonObject = JSON.parse(data);
+
+    //         // Modify the data
+    //         jsonObject[0] = `${walletAddress}`;
+
+    //         // Convert the modified object back to a JSON string
+    //         const jsonString = JSON.stringify(jsonObject, null, 2);
+    //         console.log("saving: ",jsonString)
+    //         // Write the new JSON string back to the file
+    //         fs.writeFile('contract.json', jsonString, 'utf8', err => {
+    //             if (err) {
+    //                 console.error(`Error writing file to disk: ${err}`);
+    //             } else {
+    //                 console.error(`Success`);
+
+    //             }
+    //         });
+    //     }
+    // });
+
+}
+async function contract_read() {
+
+    const data = await User.findById('65bf8b52ebbbf70b463266ee')
+    const {contractAddress} = data
     return formatResponse(
         200,
         "Success",
         "",
-        { data }
+        { data : [contractAddress] }
     );
+
+    // const data = contract
+    // console.log("reading:",data)
+    // if (data.length == 0) {
+    //     return formatResponse(
+    //         200,
+    //         "Fail",
+    //         "No contract yet"
+    //     );
+    // }
+    // return formatResponse(
+    //     200,
+    //     "Success",
+    //     "",
+    //     { data }
+    // );
 }
 
 module.exports = {

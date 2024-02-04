@@ -4,7 +4,7 @@ const keccak256 = require("keccak256");
 const { MerkleTree } = require('merkletreejs')
 const addressess = require("./white.json")
 const whiteList = require("./output.json")
-const contract = require("./contract.json")
+const contract = require("../../contract.json")
 const path = require('path');
 const fs = require('fs');
 
@@ -65,7 +65,7 @@ async function contract_deploy(query) {
     const jsonFilePath = path.join(__dirname, 'contract.json');
 
     // Read the JSON file
-    fs.readFile(jsonFilePath, 'utf8', (err, data) => {
+    fs.readFile('contract.json', 'utf8', (err, data) => {
         if (err) {
             console.error(`Error reading file from disk: ${err}`);
         } else {
@@ -79,7 +79,7 @@ async function contract_deploy(query) {
             const jsonString = JSON.stringify(jsonObject, null, 2);
 
             // Write the new JSON string back to the file
-            fs.writeFile(jsonFilePath, jsonString, 'utf8', err => {
+            fs.writeFile('contract.json', jsonString, 'utf8', err => {
                 if (err) {
                     console.error(`Error writing file to disk: ${err}`);
                 } else {

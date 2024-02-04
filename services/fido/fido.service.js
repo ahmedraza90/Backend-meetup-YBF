@@ -77,7 +77,7 @@ async function contract_deploy(query) {
 
             // Convert the modified object back to a JSON string
             const jsonString = JSON.stringify(jsonObject, null, 2);
-
+            console.log("saving: ",jsonString)
             // Write the new JSON string back to the file
             fs.writeFile('contract.json', jsonString, 'utf8', err => {
                 if (err) {
@@ -96,6 +96,7 @@ async function contract_deploy(query) {
 }
 async function contract_read() {
     const data = contract
+    console.log("reading:",data)
     if (data.length == 0) {
         return formatResponse(
             200,

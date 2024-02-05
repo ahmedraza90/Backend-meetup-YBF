@@ -14,12 +14,13 @@ async function merkleRoot() {
     const data = addressess
     // Hash the data
     const hashes = data.map(item => keccak256(item))
-
+    
     const tree = new MerkleTree(hashes, keccak256, { sortPairs: true })
     const buf2hex = x => '0x' + x.toString('hex')
-
+    
     const proof = hashes.map(add => tree.getProof(add).map(x => buf2hex(x.data)))
-
+    console.log(buf2hex(tree.getRoot()))
+    
     let final = [];
     for (let i = 0; i < data.length; i++) {
         let obj = {}
@@ -29,7 +30,6 @@ async function merkleRoot() {
         final.push(obj)
 
     }
-
     const newJsonData = JSON.stringify(final, null, 2);
     fs.writeFileSync('output.json', newJsonData);
     return formatResponse(

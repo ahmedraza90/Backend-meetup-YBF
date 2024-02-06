@@ -18,7 +18,6 @@ async function merkle_root(req, res) {
 async function get_user_by(req, res) {
     try {
         const response = await fidoService.wallet_checker(req.params)
-        
         if (response) {
             return res
                 .status(response.statusCode)

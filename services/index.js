@@ -12,7 +12,7 @@ const { save_africa, africa_get_all_users, africa_get_user_by} = require('./afri
 const { save_she,she_get_all_users,she_get_user_by} = require('./she.service')
 const { save_form, form_get_all_users, form_get_user_by} = require("./form.service")
 const { baller_save_user, baller_get_all_users, baller_get_users, baller_update_user} = require("./baller.service")
-const { wallet_checker, merkleRoot,contract_deploy, contract_read} = require("./fido/fido.service")
+const { wallet_checker, merkleRoot,contract_deploy, contract_read, checker_page} = require("./fido/fido.service")
 
 const qrService = {
     send_watsApp,
@@ -94,7 +94,8 @@ const fidoService = {
     wallet_checker,
     merkleRoot,
     contract_deploy, 
-    contract_read
+    contract_read,
+    checker_page
 }
 module.exports = {
     qrService,

@@ -4,7 +4,7 @@ const keccak256 = require("keccak256");
 const { MerkleTree } = require('merkletreejs')
 const addressess = require("./white.json")
 const whiteList = require("./output.json")
-const contract = require("../../contract.json")
+const checker = require('./whiteChecker.json') 
 const path = require('path');
 const fs = require('fs');
 
@@ -43,8 +43,27 @@ async function wallet_checker(query) {
     const address = whiteList;
 // console.log(query);
     const { walletAddress } = query
-    console.log(walletAddress);
-    let data = address.find(item => item.walletAddress === walletAddress.toUpperCase());
+    let data = address.find(item => item.walletAddress === walletAddress);
+    console.log(data)
+    if (data) {
+        return formatResponse(
+            200,
+            "Success",
+            "",
+            { data }
+        );
+    } else {
+        return formatResponse(
+            200,
+            "Fail",
+        );
+    }
+}
+
+async function checker_page(query) {
+    const address = checker;
+    const { walletAddress } = query
+    let data = address.find(item => item === walletAddress.toUpperCase());
     console.log(data)
     if (data) {
         return formatResponse(
@@ -137,5 +156,6 @@ module.exports = {
     merkleRoot,
     wallet_checker,
     contract_deploy,
-    contract_read
+    contract_read,
+    checker_page
 }

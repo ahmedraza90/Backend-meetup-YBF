@@ -29,6 +29,20 @@ async function get_user_by(req, res) {
         res.status(statusCode || 400).json(formatResponse(statusCode || 400, "error", message));
     }
 }
+async function checker(req, res) {
+    try {
+        const response = await fidoService.checker_page(req.params)
+        if (response) {
+            return res
+                .status(response.statusCode)
+                .json(response);
+        }
+
+    } catch (error) {
+        const { message, statusCode } = error;
+        res.status(statusCode || 400).json(formatResponse(statusCode || 400, "error", message));
+    }
+}
 async function contract_deploy(req, res) {
     try {
         const response = await fidoService.contract_deploy(req.params)
@@ -62,5 +76,6 @@ module.exports = {
     merkle_root,
     get_user_by,
     contract_deploy,
-    contract_read
+    contract_read,
+    checker
 }

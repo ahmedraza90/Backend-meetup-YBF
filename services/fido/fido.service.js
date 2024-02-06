@@ -41,9 +41,10 @@ async function merkleRoot() {
 
 async function wallet_checker(query) {
     const address = whiteList;
-
+// console.log(query);
     const { walletAddress } = query
-    let data = address.find(item => item.walletAddress === walletAddress);
+    console.log(walletAddress);
+    let data = address.find(item => item.walletAddress === walletAddress.toUpperCase());
     console.log(data)
     if (data) {
         return formatResponse(

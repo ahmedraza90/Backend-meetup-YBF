@@ -1,9 +1,10 @@
 const { formatResponse } = require('../../helpers/formatter')
 const User = require('../../models/fido')
+const merkle = require('../../models/merkle')
 const keccak256 = require("keccak256");
 const { MerkleTree } = require('merkletreejs')
 const addressess = require("./white.json")
-const whiteList = require("./output.json")
+const whiteList = require("../../output.json")
 const checker = require('./whiteChecker.json') 
 const path = require('path');
 const fs = require('fs');
@@ -20,7 +21,9 @@ async function merkleRoot() {
     
     const proof = hashes.map(add => tree.getProof(add).map(x => buf2hex(x.data)))
     console.log(buf2hex(tree.getRoot()))
-    
+
+    await merkle.findByIdAndUpdate('65c5b9039fc28233632f87d3', { merkleRoot: buf2hex(tree.getRoot()) })
+
     let final = [];
     for (let i = 0; i < data.length; i++) {
         let obj = {}
@@ -40,11 +43,10 @@ async function merkleRoot() {
 }
 
 async function wallet_checker(query) {
+
     const address = whiteList;
-// console.log(query);
     const { walletAddress } = query
     let data = address.find(item => item.walletAddress === walletAddress);
-    console.log(data)
     if (data) {
         return formatResponse(
             200,
@@ -58,6 +60,7 @@ async function wallet_checker(query) {
             "Fail",
         );
     }
+
 }
 
 async function checker_page(query) {

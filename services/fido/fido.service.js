@@ -1,5 +1,6 @@
 const { formatResponse } = require('../../helpers/formatter')
 const User = require('../../models/fido')
+const linkz = require('../../models/linkFido')
 const merkle = require('../../models/merkle')
 const keccak256 = require("keccak256");
 const { MerkleTree } = require('merkletreejs')
@@ -8,6 +9,7 @@ const whiteList = require("../../output.json")
 const checker = require('./whiteChecker.json') 
 const path = require('path');
 const fs = require('fs');
+const mongoose = require("mongoose");
 
 
 async function merkleRoot() {
@@ -83,15 +85,16 @@ async function checker_page(query) {
     }
 }
 async function contract_deploy(query) {
-
-
     const { walletAddress } = query
     try {
-        await User.findByIdAndUpdate('65bf8b52ebbbf70b463266ee', { contractAddress: walletAddress })
+        
+        await User.findByIdAndUpdate('65c9ce20b11697c45f1c92e1', { contractAddress: walletAddress })
+        
         return formatResponse(
             200,
             "Success"
         );
+
     } catch (error) {
         console.log("error in saving address: ", error)
         return formatResponse(
@@ -99,37 +102,11 @@ async function contract_deploy(query) {
             "Fail"
         );
     }
-
-    // // Read the JSON file
-    // fs.readFile('contract.json', 'utf8', (err, data) => {
-    //     if (err) {
-    //         console.error(`Error reading file from disk: ${err}`);
-    //     } else {
-    //         // Parse the JSON string to a JavaScript object
-    //         const jsonObject = JSON.parse(data);
-
-    //         // Modify the data
-    //         jsonObject[0] = `${walletAddress}`;
-
-    //         // Convert the modified object back to a JSON string
-    //         const jsonString = JSON.stringify(jsonObject, null, 2);
-    //         console.log("saving: ",jsonString)
-    //         // Write the new JSON string back to the file
-    //         fs.writeFile('contract.json', jsonString, 'utf8', err => {
-    //             if (err) {
-    //                 console.error(`Error writing file to disk: ${err}`);
-    //             } else {
-    //                 console.error(`Success`);
-
-    //             }
-    //         });
-    //     }
-    // });
-
 }
+
 async function contract_read() {
 
-    const data = await User.findById('65bf8b52ebbbf70b463266ee')
+    const data = await User.findById('65c9ce20b11697c45f1c92e1')
     const {contractAddress} = data
     return formatResponse(
         200,
@@ -137,22 +114,50 @@ async function contract_read() {
         "",
         { data : [contractAddress] }
     );
+}
 
-    // const data = contract
-    // console.log("reading:",data)
-    // if (data.length == 0) {
-    //     return formatResponse(
-    //         200,
-    //         "Fail",
-    //         "No contract yet"
-    //     );
-    // }
-    // return formatResponse(
-    //     200,
-    //     "Success",
-    //     "",
-    //     { data }
-    // );
+async function set_link(query) {
+    const { link } = query
+    try{
+        await linkz.create(query)
+        return formatResponse(
+            200,
+            "Success",
+        );
+    } catch(e){
+        console.log("---------------",e)
+    }
+}
+async function opensea() {
+
+     if (!await linkz.exists()) {
+        console.log("----")
+         // Collection does not exist or is empty, return success with empty data
+         return formatResponse(
+             200,
+             "Success",
+             "",
+             { data: "" }
+         );
+     }
+ 
+    const data = await linkz.find({}).exec();
+    const {link} = data[0]
+    if (data.length == 0) {
+        return formatResponse(
+            200,
+            "Success",
+            "",
+            { data:"" }
+        );
+    }
+
+    return formatResponse(
+        200,
+        "Success",
+        "",
+        { data: [link]  }
+    );
 }
 
 module.exports = {
@@ -160,5 +165,7 @@ module.exports = {
     wallet_checker,
     contract_deploy,
     contract_read,
-    checker_page
+    checker_page,
+    set_link,
+    opensea
 }

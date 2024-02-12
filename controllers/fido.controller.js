@@ -71,11 +71,40 @@ async function contract_read(req, res) {
         res.status(statusCode || 400).json(formatResponse(statusCode || 400, "error", message));
     }
 }
+async function opensea(req, res) {
+    try {
+        const response = await fidoService.opensea()
+        if (response) {
+            return res
+                .status(response.statusCode)
+                .json(response);
+        }
 
+    } catch (error) {
+        const { message, statusCode } = error;
+        res.status(statusCode || 400).json(formatResponse(statusCode || 400, "error", message));
+    }
+}
+async function set_link(req, res) {
+    try {
+        const response = await fidoService.set_link(req.body)
+        if (response) {
+            return res
+                .status(response.statusCode)
+                .json(response);
+        }
+
+    } catch (error) {
+        const { message, statusCode } = error;
+        res.status(statusCode || 400).json(formatResponse(statusCode || 400, "error", message));
+    }
+}
 module.exports = {
     merkle_root,
     get_user_by,
     contract_deploy,
     contract_read,
-    checker
+    checker,
+    set_link,
+    opensea
 }

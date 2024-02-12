@@ -2,14 +2,10 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
     {
-        contractAddress: {
+        link: {
             type: String,
             required: true,
-        },
-        flag : {
-            type: Boolean,
-            default: false
-        }   
+        }
     },
     {
         timestamps: true,
@@ -18,4 +14,4 @@ const userSchema = new mongoose.Schema(
     }
 );
 
-module.exports = mongoose.model("fido_dido", userSchema);
+module.exports = mongoose.model("fido_link", userSchema);

@@ -6,5 +6,7 @@ router.post('/contractDeploye/:walletAddress',controller.contract_deploy)
 router.get('/contract',controller.contract_read)
 router.get('/check-page/:walletAddress',controller.get_user_by)
 router.get('/check-wallet/:walletAddress',controller.checker)
+router.get('/opensea',controller.opensea)
+router.post('/set_link',controller.set_link)
 
 module.exports = router

@@ -4,6 +4,7 @@ const linkz = require('../../models/linkFido')
 const merkle = require('../../models/merkle')
 const keccak256 = require("keccak256");
 const { MerkleTree } = require('merkletreejs')
+const lower = require('./lower.json')
 const addressess = require("./white.json")
 const whiteList = require("../../output.json")
 const checker = require('./whiteChecker.json') 
@@ -14,7 +15,7 @@ const mongoose = require("mongoose");
 
 async function merkleRoot() {
 
-    const data = addressess
+    const data = lower
     // Hash the data
     const hashes = data.map(item => keccak256(item))
     

@@ -5,6 +5,7 @@ const merkle = require('../../models/merkle')
 const keccak256 = require("keccak256");
 const { MerkleTree } = require('merkletreejs')
 const addressess = require("./white.json")
+const lower = require("./lower.json")
 const whiteList = require("../../output.json")
 const checker = require('./whiteChecker.json') 
 const path = require('path');
@@ -14,7 +15,7 @@ const mongoose = require("mongoose");
 
 async function merkleRoot() {
 
-    const data = addressess
+    const data = lower
     // Hash the data
     const hashes = data.map(item => keccak256(item))
     
@@ -33,8 +34,8 @@ async function merkleRoot() {
         obj["proof"] = proof[i]
 
         final.push(obj)
-
     }
+
     const newJsonData = JSON.stringify(final, null, 2);
     fs.writeFileSync('output.json', newJsonData);
     return formatResponse(
